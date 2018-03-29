@@ -1,0 +1,8 @@
+/target
+/logs
+/.settings/
+.settings
+.classpath
+.project
+parking.properties
+

@@ -51,16 +51,21 @@ public class MyFilter extends ZuulFilter{
         log.info(String.format("%s >>> %s", request.getMethod(), request.getRequestURL().toString()));
         Object accessToken = request.getParameter("token");
         if(accessToken == null) {
-            log.warn("token is empty");
+            
             ctx.setSendZuulResponse(false);
             ctx.setResponseStatusCode(401);
             try {
                 ctx.getResponse().getWriter().write("token is empty");
-            }catch (Exception e){}
-
-            return null;
-        }
-        log.info("ok");
+            }catch (Exception e){
+            	log.error(e.getMessage());
+            }
+            log.info("token is empty");
+        }else {
+			ctx.setSendZuulResponse(true);
+			ctx.setResponseStatusCode(200);
+			ctx.set("isSuccess", true);
+			log.info("ok");
+		}
         return null;
     }
 
